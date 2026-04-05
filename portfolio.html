@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tauseef Askari — Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0e0e0e;
+    --white: #fafaf8;
+    --gray-100: #f2f1ef;
+    --gray-200: #e3e1dc;
+    --gray-400: #a09e98;
+    --gray-600: #6b6963;
+    --serif: 'DM Serif Display', serif;
+    --sans: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--white); color: var(--black); font-size: 16px; line-height: 1.7; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .nav-logo { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--black); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--gray-600); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--black); font-weight: 500; }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; max-width: 900px; margin: 0 auto; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding-top: 8rem; max-width: 900px; margin: 0 auto;
+  }
+
+  /* 1. "Software Developer" — big bold badge with pulsing dot */
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    color: var(--black); letter-spacing: 0.07em; text-transform: uppercase;
+    margin-bottom: 1.5rem; padding: 0.5rem 1.1rem 0.5rem 0.8rem;
+    border: 1.5px solid var(--black); border-radius: 2px; width: fit-content;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: inline-block; width: 8px; height: 8px;
+    background: var(--black); border-radius: 50%;
+    animation: blink 2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.65)} }
+
+  .hero-title { font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .hero-title em { font-style: italic; color: var(--gray-400); }
+
+  /* Bold role tags below name */
+  .hero-roles {
+    display: flex; align-items: center; gap: 0.5rem;
+    flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+  .role-chip {
+    font-family: var(--serif); font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 700; letter-spacing: -0.02em;
+    background: var(--black); color: var(--white);
+    padding: 0.1em 0.45em; border-radius: 3px;
+  }
+  .role-sep { color: var(--gray-200); font-family: var(--mono); font-size: 1rem; }
+
+  .hero-subtitle { font-size: 1.05rem; color: var(--gray-600); max-width: 500px; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { font-family: var(--mono); font-size: 13px; padding: 0.7rem 1.5rem; border-radius: 2px; text-decoration: none; cursor: pointer; transition: all 0.2s; letter-spacing: 0.03em; display: inline-block; }
+  .btn-primary { background: var(--black); color: var(--white); border: 1px solid var(--black); }
+  .btn-primary:hover { background: var(--gray-600); border-color: var(--gray-600); }
+  .btn-secondary { background: transparent; color: var(--black); border: 1px solid var(--gray-200); }
+  .btn-secondary:hover { border-color: var(--black); }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--gray-200); max-width: 900px; margin: 0 auto; }
+
+  /* 4. SECTION LABEL + BIG BOLD HEADING with underline animation on scroll */
+  .section-label { font-family: var(--mono); font-size: 12px; color: var(--gray-400); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin-bottom: 2.5rem;
+    display: inline-block;
+    position: relative;
+  }
+  .section-heading::after {
+    content: '';
+    position: absolute; bottom: -5px; left: 0;
+    height: 3px; width: 0;
+    background: var(--black);
+    border-radius: 2px;
+    transition: width 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  section.in-view .section-heading::after { width: 100%; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--gray-600); margin-bottom: 1rem; font-weight: 300; }
+  .about-detail { padding: 1rem 0; border-bottom: 1px solid var(--gray-200); }
+  .about-detail:first-child { border-top: 1px solid var(--gray-200); }
+  .about-detail-label { font-family: var(--mono); font-size: 11px; color: var(--gray-400); letter-spacing: 0.08em; margin-bottom: 0.25rem; }
+  .about-detail-value { font-size: 15px; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; }
+  .skill-category { padding: 1.5rem; border: 1px solid var(--gray-200); margin: -1px 0 0 -1px; }
+  .skill-category-name { font-family: var(--mono); font-size: 12px; color: var(--gray-400); letter-spacing: 0.08em; margin-bottom: 1rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag { font-family: var(--mono); font-size: 12px; padding: 4px 10px; background: var(--gray-100); color: var(--black); border-radius: 2px; }
+
+  /* 2. PROJECTS — image thumbnail on the left */
+  .projects-list { display: flex; flex-direction: column; }
+  .project-item {
+    display: grid;
+    grid-template-columns: 108px 1fr 24px;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--gray-200);
+    text-decoration: none; color: inherit;
+  }
+  .project-item:first-child { border-top: 1px solid var(--gray-200); }
+  .project-thumb {
+    width: 108px; height: 70px;
+    border-radius: 5px;
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.25s;
+  }
+  .project-item:hover .project-thumb { transform: scale(1.05); }
+  .project-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Placeholder tiles */
+  .thumb-alpha { background: #ede9e2; }
+  .thumb-beta  { background: #e2e7ed; }
+  .thumb-gamma { background: #e5ede2; }
+  .thumb-icon {
+    font-family: var(--serif); font-size: 28px;
+    color: rgba(0,0,0,0.18); font-style: italic; user-select: none;
+  }
+
+  .project-title { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 0.3rem; letter-spacing: -0.01em; transition: color 0.2s; }
+  .project-item:hover .project-title { color: var(--gray-600); }
+  .project-desc { font-size: 13px; color: var(--gray-600); font-weight: 300; margin-bottom: 0.6rem; line-height: 1.5; }
+  .project-tech { display: flex; gap: 5px; flex-wrap: wrap; }
+  .project-tech span { font-family: var(--mono); font-size: 11px; color: var(--gray-400); border: 1px solid var(--gray-200); padding: 2px 8px; border-radius: 2px; }
+  .project-arrow { font-size: 16px; color: var(--gray-200); align-self: flex-start; padding-top: 4px; transition: color 0.2s, transform 0.2s; }
+  .project-item:hover .project-arrow { color: var(--black); transform: translate(3px,-3px); }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; }
+  .exp-item { display: grid; grid-template-columns: 160px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--gray-200); }
+  .exp-item:first-child { border-top: 1px solid var(--gray-200); }
+  .exp-period { font-family: var(--mono); font-size: 12px; color: var(--gray-400); padding-top: 4px; }
+  .exp-role { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .exp-company { font-family: var(--mono); font-size: 13px; color: var(--gray-600); margin-bottom: 0.75rem; }
+  .exp-desc { font-size: 14px; color: var(--gray-600); font-weight: 300; }
+
+  /* CONTACT */
+  #contact { padding-bottom: 7rem; }
+  .contact-sub { color: var(--gray-600); font-weight: 300; margin-top: -1rem; margin-bottom: 2rem; max-width: 400px; }
+  .contact-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .contact-link { font-family: var(--mono); font-size: 13px; color: var(--black); text-decoration: none; padding: 0.6rem 1.2rem; border: 1px solid var(--gray-200); border-radius: 2px; transition: all 0.2s; }
+  .contact-link:hover { border-color: var(--black); background: var(--gray-100); }
+
+  /* 3. FOOTER — dark, proper copyright */
+  footer { background: var(--black); }
+  .footer-main {
+    max-width: 900px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 3rem 3rem 1.5rem; gap: 2rem; flex-wrap: wrap;
+  }
+  .footer-brand .footer-name { font-family: var(--serif); font-size: 1.2rem; color: var(--white); margin-bottom: 0.3rem; }
+  .footer-brand p { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; }
+  .footer-nav-col h4 { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .footer-nav-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .footer-nav-col a { font-family: var(--mono); font-size: 12px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-nav-col a:hover { color: var(--white); }
+  .footer-bottom {
+    max-width: 900px; margin: 0 auto;
+    padding: 1.25rem 3rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .footer-bottom p { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.03em; }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 6rem 1.5rem 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
+    .project-item { grid-template-columns: 80px 1fr 20px; gap: 1rem; }
+    .project-thumb { width: 80px; height: 55px; }
+    .footer-main { padding: 2rem 1.5rem 1rem; flex-direction: column; }
+    .footer-bottom { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">TauseefAskari.dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding: 0 3rem;">
+  <div class="hero-eyebrow fade-in">Software Developer</div>
+  <h1 class="hero-title fade-in">Hi, I'm<br/><em>Tauseef Askari</em></h1>
+  <div class="hero-roles fade-in">
+    <span class="role-chip">Full-Stack</span>
+    <span class="role-sep">/</span>
+    <span class="role-chip">Backend</span>
+    <span class="role-sep">/</span>
+    <span class="role-chip">Open Source</span>
+  </div>
+  <p class="hero-subtitle fade-in">I build clean, efficient software — from full-stack web apps to backend systems that scale.</p>
+  <div class="hero-cta fade-in">
+    <a href="#projects" class="btn btn-primary">View my work</a>
+    <a href="#contact" class="btn btn-secondary">Get in touch</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label fade-in">About</p>
+  <h2 class="section-heading fade-in">Turning ideas into<br/>reliable software.</h2>
+  <div class="about-grid fade-in">
+    <div class="about-text">
+      <p>I'm a software developer with a passion for writing clean, maintainable code. I enjoy solving complex problems and building products that people actually use.</p>
+      <p>When I'm not coding, I'm exploring new technologies, contributing to open source, or reading about systems design.</p>
+    </div>
+    <div class="about-aside">
+      <div class="about-detail"><div class="about-detail-label">Location</div><div class="about-detail-value">Lucknow , India</div></div>
+      <div class="about-detail"><div class="about-detail-label">Education</div><div class="about-detail-value">B.Tech / Dr. A. P. J. Abdul Kalam Technical University, Lucknow
+ </div></div>
+      <div class="about-detail"><div class="about-detail-label">Availability</div><div class="about-detail-value">Open to opportunities</div></div>
+      <div class="about-detail"><div class="about-detail-label">Languages</div><div class="about-detail-value">English, Hindi, Urdu</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label fade-in">Skills</p>
+  <h2 class="section-heading fade-in">What I work with.</h2>
+  <div class="skills-grid fade-in">
+    <div class="skill-category">
+      <div class="skill-category-name">Languages</div>
+      <div class="skill-tags"><span class="skill-tag">Java</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Python</span><span class="skill-tag">C</span></div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-category-name">Frontend</div>
+      <div class="skill-tags"><span class="skill-tag">React</span><span class="skill-tag"></span><span class="skill-tag">HTML/CSS</span><span class="skill-tag">Tailwind</span></div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-category-name">Backend</div>
+      <div class="skill-tags"><span class="skill-tag">Java</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">REST APIs</span></div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-category-name">Tools & Cloud</div>
+      <div class="skill-tags"><span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">Docker</span><span class="skill-tag">Postman</span><span class="skill-tag">MySQL</span><span class="skill-tag">MongoDB</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label fade-in">Projects</p>
+  <h2 class="section-heading fade-in">Things I've built.</h2>
+  <div class="projects-list fade-in">
+<!-- 
+    <a href="#" class="project-item">
+      <div class="project-thumb thumb-alpha"> -->
+        <!-- To add your own image: replace the div below with <img src="screenshot1.png" alt="Project Alpha"> -->
+        <!-- <div class="thumb-icon">α</div>
+      </div>
+      <div>
+        <div class="project-title">Project Alpha</div>
+        <div class="project-desc">A full-stack web application that does X, Y, and Z. Describe what it does and the problem it solves in one or two sentences.</div>
+        <div class="project-tech"><span>React</span><span>Node.js</span><span>PostgreSQL</span></div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a> -->
+
+    <a href="#" class="project-item">
+      <div class="project-thumb thumb-beta">
+        <div class="thumb-icon">
+          <img src="assets/48-Login-scaled.jpg.webp">
+        </div>
+      </div>
+      <div>
+        <div class="project-title">E-Learning Management System </div>
+        <div class="project-desc">A full-stack E-learning platform that allows students, professors, and admins to manage courses, enrollments, and learning activities through a role-based system.</div>
+        <div class="project-tech"><span>Java</span><span>SpringBoot</span><span>MySQL</span><span>React.js</span></div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <a href="#" class="project-item">
+      <div class="project-thumb thumb-gamma">
+        <div class="thumb-icon">
+          <img src="assets/Rapid_Mart.jpg">
+        </div>
+      </div>
+      <div>
+        <div class="project-title">Rapid Mart Manager</div>
+        <div class="project-desc">A Java-based store management system for efficient billing, sales tracking, and inventory management.</div>
+        <div class="project-tech"><span>Java</span><span>Java Swing</span><span>MySQL</span></div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+     <a href="https://tauseefaskari.github.io/Currency-Converter/" class="project-item">
+      <div class="project-thumb thumb-gamma">
+        <div class="thumb-icon">
+          <img src="assets/currency-converter.jpg">
+        </div>
+      </div>
+      <div>
+        <div class="project-title">Currency converter</div>
+        <div class="project-desc">A responsive web application that allows users to convert currencies in real-time with an intuitive interface.</div>
+        <div class="project-tech"><span>HMTL</span><span>CSS</span><span>JavaScript</span></div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+    <a href="https://tauseefaskari.github.io/QR-code-Generator/" class="project-item">
+      <div class="project-thumb thumb-gamma">
+        <div class="thumb-icon">
+          <img src="assets/qr_img.png">
+        </div>
+      </div>
+      <div>
+        <div class="project-title">QR Code Generator</div>
+        <div class="project-desc">Website to convert personal Information into QR codes for Securing Data.</div>
+        <div class="project-tech"><span>HMTL</span><span>CSS</span><span>JavaScript</span></div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label fade-in">Experience</p>
+  <h2 class="section-heading fade-in">Where I've worked.</h2>
+  <div class="exp-list fade-in">
+    <!-- <div class="exp-item">
+      <div class="exp-period">2023 — Present</div>
+      <div><div class="exp-role">Software Developer</div><div class="exp-company">Company Name</div><div class="exp-desc">Built and maintained features for the core product. Reduced page load time by X%, collaborated with a team of Y engineers, and shipped N features to production.</div></div>
+    </div> -->
+    <div class="exp-item">
+      <div class="exp-period">2024 — 2025</div>
+      <div><div class="exp-role">Java Developer Intern</div><div class="exp-company">Analyze Infotech</div><div class="exp-desc">Worked on the backend API team. Implemented a feature that improved data processing speed. Wrote unit tests and documentation.</div></div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-period">2021 — 2025</div>
+      <div><div class="exp-role">B.Tech Computer Science</div><div class="exp-company">Dr.APJ Abdul Kalam Technical University, Lucknow</div><div class="exp-desc">Graduated with distinction. Coursework in algorithms, data structures, OS, and databases. Final year project on E-Learning Management System.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label fade-in">Contact</p>
+  <h2 class="section-heading fade-in">Let's work<br/>together.</h2>
+  <p class="contact-sub fade-in">I'm currently open to full-time roles and interesting freelance projects. Say hello!</p>
+  <div class="contact-links fade-in">
+    <a href="mailto:tauseefaskari110@gmail.com" class="contact-link">Gmail</a>
+    <a href="https://github.com/tauseefaskari" class="contact-link" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/tauseef-askari/" class="contact-link" target="_blank">LinkedIn</a>
+    <a href="assets/Tauseef_Askari_Resume.pdf" class="contact-link">Download CV</a>
+  </div>
+</section>
+
+<!-- 3. FOOTER — dark, professional copyright footer -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="footer-name">Tauseef Askari</div>
+      <p>Software Developer · India</p>
+      <p style="margin-top:0.5rem;">Building things for the web.</p>
+    </div>
+    <div class="footer-nav-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://github.com/tauseefaskari" target="_blank">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/tauseef-askari/" target="_blank">LinkedIn</a></li>
+        <li><a href="https://twitter.com/yourhandle" target="_blank">Twitter / X</a></li>
+        <li><a href="mailto:tauseefaskari110@gmail.com">Gmail</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Tauseef Askari. All rights reserved.</p>
+    <p>Designed & built by Tauseef Askari &nbsp;·&nbsp; Made with 	&#9829;</p>
+  </div>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+  // 4. Highlight section heading when it scrolls into view
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      e.target.classList.toggle('in-view', e.isIntersecting);
+      const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (link) link.classList.toggle('active', e.isIntersecting);
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+</script>
+</body>
+</html>
